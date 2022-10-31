@@ -16,7 +16,7 @@
         android:foreground="?android:attr/selectableItemBackground"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="horizontal">
 
         <androidx.cardview.widget.CardView
             app:cardBackgroundColor="@color/purple_400"
@@ -73,17 +73,44 @@
             android:layout_height="wrap_content"
             app:cardCornerRadius="0dp">
 
-            <androidx.appcompat.widget.AppCompatTextView
-                tools:text="Kamal Hassan"
-                android:textColor="@color/grey_60"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                android:padding="5dp"
-                android:layout_margin="5dp"
-                android:gravity="center"
-                android:layout_gravity="center"
-                android:id="@+id/id_tag_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    tools:text="Kamal Hassan"
+                    android:textColor="@color/grey_60"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    android:padding="5dp"
+                    android:layout_margin="5dp"
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    android:id="@+id/id_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    tools:text="Kamal Hassan"
+                    android:textColor="@color/grey_60"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    android:id="@+id/id_gender_age"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    tools:text="Kamal Hassan"
+                    android:textColor="@color/grey_60"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    android:id="@+id/id_location"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
 
         </androidx.cardview.widget.CardView>
     </LinearLayout>

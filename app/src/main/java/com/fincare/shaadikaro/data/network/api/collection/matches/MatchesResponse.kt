@@ -32,7 +32,7 @@ data class Location(
     @SerializedName("city") var city: String? = null,
     @SerializedName("state") var state: String? = null,
     @SerializedName("country") var country: String? = null,
-    @SerializedName("postcode") var postcode: Int? = null,
+    @SerializedName("postcode") var postcode: String? = null,
     @SerializedName("coordinates") var coordinates: Coordinates? = null,
     @SerializedName("timezone") var timezone: Timezone? = null
 )
@@ -49,12 +49,12 @@ data class Login(
 
 data class Dob(
     @SerializedName("date") var date: String? = null,
-    @SerializedName("age") var age: Int? = null
+    @SerializedName("age") var age: String? = null
 )
 
 data class Registered(
     @SerializedName("date") var date: String? = null,
-    @SerializedName("age") var age: Int? = null
+    @SerializedName("age") var age: String? = null
 )
 
 data class Id(

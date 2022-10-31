@@ -76,7 +76,7 @@ class MatchesAdapter(
         }
 
         movie.picture?.large?.let {
-            val placeHolder = ContextCompat.getDrawable(context,R.drawable.ic_oops)
+            val placeHolder = ContextCompat.getDrawable(context,R.drawable.ic_person)
             holder.binding.idArtistImage.loadImage(it,placeHolder) {
             }
         }
