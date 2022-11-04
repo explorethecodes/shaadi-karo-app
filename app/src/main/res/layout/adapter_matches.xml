@@ -7,33 +7,25 @@
         <import type="android.view.View" />
         <variable
             name="data"
-            type="com.fincare.shaadikaro.data.network.api.collection.matches.Person" />
+            type="com.fincare.shaadikaro.data.network.models.collection.matches.Person" />
     </data>
 
     <LinearLayout
-        android:focusable="true"
-        android:clickable="true"
-        android:foreground="?android:attr/selectableItemBackground"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:paddingTop="10dp"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="170dp"
+        android:orientation="vertical">
 
-        <androidx.cardview.widget.CardView
-            app:cardBackgroundColor="@color/purple_400"
-            android:layout_marginTop="7dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_width="140dp"
-            android:layout_height="140dp"
-            android:visibility="visible"
-            app:cardCornerRadius="70dp"
-            app:cardElevation="0dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
             <androidx.cardview.widget.CardView
-                app:cardBackgroundColor="@color/white"
-                android:layout_marginTop="7dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
+                android:layout_gravity="center"
+                app:cardBackgroundColor="@color/purple_400"
+                android:layout_marginStart="10dp"
                 android:layout_width="140dp"
                 android:layout_height="140dp"
                 android:visibility="visible"
@@ -41,77 +33,186 @@
                 app:cardElevation="0dp">
 
                 <androidx.cardview.widget.CardView
-                    android:layout_margin="2dp"
+                    app:cardBackgroundColor="@color/white"
+                    android:layout_marginTop="7dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
                     android:layout_width="140dp"
                     android:layout_height="140dp"
                     android:visibility="visible"
                     app:cardCornerRadius="70dp"
-                    app:cardElevation="1dp">
-                    <View
-                        android:layout_gravity="center"
-                        android:elevation="11dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"/>
+                    app:cardElevation="0dp">
 
-                    <ImageView
-                        tools:background="@color/grey_10"
-                        android:id="@+id/id_artist_image"
-                        android:scaleType="centerCrop"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"/>
+                    <androidx.cardview.widget.CardView
+                        android:layout_margin="2dp"
+                        android:layout_width="140dp"
+                        android:layout_height="140dp"
+                        android:visibility="visible"
+                        app:cardCornerRadius="70dp"
+                        app:cardElevation="1dp">
+                        <View
+                            android:layout_gravity="center"
+                            android:elevation="11dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"/>
+
+                        <ImageView
+                            tools:background="@color/purple_50"
+                            android:id="@+id/id_artist_image"
+                            android:scaleType="centerCrop"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"/>
+                    </androidx.cardview.widget.CardView>
                 </androidx.cardview.widget.CardView>
+
             </androidx.cardview.widget.CardView>
 
-        </androidx.cardview.widget.CardView>
-
-        <androidx.cardview.widget.CardView
-            android:layout_marginTop="7dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_width="match_parent"
-            app:cardElevation="0dp"
-            android:layout_height="wrap_content"
-            app:cardCornerRadius="0dp">
-
-            <LinearLayout
+            <androidx.cardview.widget.CardView
+                app:cardBackgroundColor="@android:color/transparent"
+                android:layout_marginTop="7dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="10dp"
                 android:layout_width="match_parent"
+                app:cardElevation="0dp"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                app:cardCornerRadius="0dp">
 
-                <androidx.appcompat.widget.AppCompatTextView
-                    tools:text="Kamal Hassan"
-                    android:textColor="@color/grey_60"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                    android:padding="5dp"
-                    android:layout_margin="5dp"
-                    android:gravity="center"
-                    android:layout_gravity="center"
-                    android:id="@+id/id_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
-                <androidx.appcompat.widget.AppCompatTextView
-                    tools:text="Kamal Hassan"
-                    android:textColor="@color/grey_60"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                    android:gravity="center"
-                    android:layout_gravity="center"
-                    android:id="@+id/id_gender_age"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    <TextView
+                        tools:text="Kamal Hassan"
+                        android:text="@{data.name.first+` `+data.name.last}"
+                        android:textColor="@color/grey_60"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                        android:id="@+id/id_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
 
-                <androidx.appcompat.widget.AppCompatTextView
-                    tools:text="Kamal Hassan"
-                    android:textColor="@color/grey_60"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                    android:gravity="center"
-                    android:layout_gravity="center"
-                    android:id="@+id/id_location"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    <TextView
+                        android:layout_marginTop="5dp"
+                        tools:text="Male | Age 69"
+                        android:text="@{data.gender+` | Age `+data.dob.age}"
+                        android:textColor="@color/grey_60"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                        android:layout_gravity="start"
+                        android:id="@+id/id_gender_age"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
 
-            </LinearLayout>
+                    <TextView
+                        tools:text="Chennai, Tamil Nadu, India"
+                        android:text="@{data.location.city+`, `+ data.location.country}"
+                        android:layout_gravity="start"
+                        android:textColor="@color/grey_60"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                        android:gravity="center"
+                        android:id="@+id/id_location"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
 
-        </androidx.cardview.widget.CardView>
+                    <LinearLayout
+                        android:visibility="gone"
+                        android:layout_marginTop="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <androidx.cardview.widget.CardView
+                            android:layout_marginTop="5dp"
+                            android:layout_marginBottom="5dp"
+                            app:contentPadding="5dp"
+                            android:focusable="true"
+                            android:clickable="true"
+                            android:foreground="?android:attr/selectableItemBackground"
+                            app:cardCornerRadius="20dp"
+                            android:layout_gravity="center"
+                            android:layout_width="100dp"
+                            android:layout_height="wrap_content"
+                            app:cardElevation="2dp"
+                            app:cardBackgroundColor="@color/purple_400">
+
+                            <TextView
+                                android:textAllCaps="true"
+                                android:text="Accept"
+                                android:gravity="center"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                                android:textColor="@color/white"
+                                android:layout_gravity="center"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"/>
+
+                        </androidx.cardview.widget.CardView>
+
+                        <TextView
+                            android:layout_marginLeft="20dp"
+                            android:textAllCaps="true"
+                            android:text="Decline"
+                            android:gravity="center"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                            android:textColor="@color/black"
+                            android:layout_gravity="center"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+                    </LinearLayout>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_marginTop="10dp"
+                        app:cardCornerRadius="20dp"
+                        app:cardBackgroundColor="@color/grey_10"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <androidx.cardview.widget.CardView
+                            app:contentPadding="5dp"
+                            android:focusable="true"
+                            android:clickable="true"
+                            android:foreground="?android:attr/selectableItemBackground"
+                            app:cardCornerRadius="20dp"
+                            android:layout_gravity="start"
+                            android:layout_width="120dp"
+                            android:layout_height="wrap_content"
+                            app:cardElevation="2dp"
+                            app:cardBackgroundColor="@color/purple_400">
+
+                            <TextView
+                                android:textAllCaps="true"
+                                android:text="Accept"
+                                android:gravity="center"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                                android:textColor="@color/white"
+                                android:layout_gravity="center"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"/>
+
+                        </androidx.cardview.widget.CardView>
+
+                        <TextView
+                            android:layout_marginRight="20dp"
+                            android:textAllCaps="true"
+                            android:text="Decline"
+                            android:gravity="end"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                            android:textColor="@color/black"
+                            android:layout_gravity="center_vertical|end"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+                    </androidx.cardview.widget.CardView>
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+        <View
+            android:alpha="0.75"
+            android:id="@+id/id_divider"
+            android:layout_marginTop="15dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/grey_20"/>
+
     </LinearLayout>
 </layout>

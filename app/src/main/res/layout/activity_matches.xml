@@ -23,7 +23,7 @@
 
             <ProgressBar
                 android:visibility="invisible"
-                android:indeterminateTint="@color/pink_A400"
+                android:indeterminateTint="@color/purple_400"
                 android:elevation="12dp"
                 android:id="@+id/id_progress_bar"
                 android:layout_gravity="center"
@@ -45,7 +45,6 @@
                     <LinearLayout
                         android:visibility="gone"
                         android:id="@+id/id_no_results"
-                        android:layout_marginTop="100dp"
                         android:layout_gravity="top"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -72,12 +71,6 @@
 
                     </LinearLayout>
 
-                    <FrameLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@color/purple_700">
-
-                    </FrameLayout>
                     <LinearLayout
                         android:layout_gravity="top"
                         android:layout_width="match_parent"
@@ -85,6 +78,7 @@
                         android:orientation="vertical">
 
                         <LinearLayout
+                            android:visibility="gone"
                             android:layout_marginTop="2dp"
                             android:background="@color/purple_700"
                             android:layout_gravity="top"
@@ -112,15 +106,16 @@
                         </LinearLayout>
                         <androidx.recyclerview.widget.RecyclerView
                             android:elevation="0dp"
+                            android:layout_weight="1"
                             android:background="@android:color/transparent"
                             tools:listitem="@layout/adapter_matches"
-                            android:padding="5dp"
+                            android:paddingLeft="5dp"
+                            android:paddingRight="5dp"
                             android:id="@+id/id_recycler_view"
                             tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                             android:orientation="vertical"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"/>
-
                     </LinearLayout>
 
                 </FrameLayout>

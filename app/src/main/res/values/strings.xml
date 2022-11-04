@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Shaadi</string>
 
-    <string name="caption">Find yours !</string>
-    <string name="label_matches_activity"> </string>
+    <string name="caption"></string>
+    <string name="label_matches_activity">Suggestions</string>
 </resources>

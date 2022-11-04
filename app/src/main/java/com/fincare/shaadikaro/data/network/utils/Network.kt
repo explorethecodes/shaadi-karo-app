@@ -1,4 +1,4 @@
-package com.fincare.shaadikaro.data.network
+package com.fincare.shaadikaro.data.network.utils
 
 import android.content.Context
 import android.net.ConnectivityManager

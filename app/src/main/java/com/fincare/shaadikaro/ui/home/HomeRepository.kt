@@ -1,17 +1,17 @@
 package com.fincare.shaadikaro.ui.home
 
-import com.fincare.shaadikaro.data.local.preference.PreferenceProvider
-import com.fincare.shaadikaro.data.network.*
-import com.fincare.shaadikaro.data.network.api.Api
-import com.fincare.shaadikaro.data.network.api.collection.matches.MatchesRequest
-import com.fincare.shaadikaro.data.network.api.collection.matches.MatchesResponse
+import com.fincare.shaadikaro.data.local.preference.AppPreference
+import com.fincare.shaadikaro.data.network.Api
+import com.fincare.shaadikaro.data.network.models.collection.matches.MatchesRequest
+import com.fincare.shaadikaro.data.network.models.collection.matches.MatchesResponse
+import com.fincare.shaadikaro.data.network.utils.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.lang.Exception
 import javax.inject.Inject
 
-class HomeRepository @Inject constructor(private val api: Api, private val preferenceProvider: PreferenceProvider) : NetworkCall() {
+class HomeRepository @Inject constructor(private val api: Api, private val preferenceProvider: AppPreference) : NetworkCall() {
     
     fun requestMatches(request: MatchesRequest, networkCallListener: NetworkCallListener?, callback : (MatchesResponse?) -> Unit){
         CoroutineScope(Dispatchers.Main).launch {

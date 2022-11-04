@@ -1,6 +1,6 @@
-package com.fincare.shaadikaro.data.network.api.collection.matches
+package com.fincare.shaadikaro.data.network.models.collection.matches
 
-import com.fincare.shaadikaro.data.network.api.base.BaseData
+import com.fincare.shaadikaro.data.network.models.base.BaseData
 
 class MatchesData(var matchesResponse: MatchesResponse) : BaseData(matchesResponse){
 

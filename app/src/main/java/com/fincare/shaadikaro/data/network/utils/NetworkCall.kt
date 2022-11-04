@@ -1,4 +1,4 @@
-package com.fincare.shaadikaro.data.network
+package com.fincare.shaadikaro.data.network.utils
 
 import com.fincare.support.logger.log
 import org.json.JSONException

@@ -1,4 +1,4 @@
-package com.fincare.shaadikaro.data.network.api.base
+package com.fincare.shaadikaro.data.network.models.base
 
 import com.google.gson.annotations.SerializedName
 

@@ -1,5 +1,5 @@
-package com.fincare.shaadikaro.data.network.api.collection.matches
-import com.fincare.shaadikaro.data.network.api.base.BaseResponse
+package com.fincare.shaadikaro.data.network.models.collection.matches
+import com.fincare.shaadikaro.data.network.models.base.BaseResponse
 import com.google.gson.annotations.SerializedName
 
 data class MatchesResponse(

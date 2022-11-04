@@ -3,10 +3,10 @@ package com.fincare.shaadikaro.ui.home
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.fincare.shaadikaro.data.network.NetworkCallListener
-import com.fincare.shaadikaro.data.network.api.collection.matches.MatchesData
-import com.fincare.shaadikaro.data.network.api.collection.matches.MatchesRequest
-import com.fincare.shaadikaro.data.network.api.collection.matches.MatchesResponse
+import com.fincare.shaadikaro.data.network.utils.NetworkCallListener
+import com.fincare.shaadikaro.data.network.models.collection.matches.MatchesData
+import com.fincare.shaadikaro.data.network.models.collection.matches.MatchesRequest
+import com.fincare.shaadikaro.data.network.models.collection.matches.MatchesResponse
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 

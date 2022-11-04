@@ -1,8 +1,8 @@
-package com.fincare.shaadikaro.data.network.api
+package com.fincare.shaadikaro.data.network
 
-import com.fincare.shaadikaro.data.network.Network.BASE_URL
-import com.fincare.shaadikaro.data.network.NetworkInterceptor
-import com.fincare.shaadikaro.data.network.api.collection.matches.MatchesResponse
+import com.fincare.shaadikaro.data.network.utils.Network.BASE_URL
+import com.fincare.shaadikaro.data.network.models.collection.matches.MatchesResponse
+import com.fincare.shaadikaro.data.network.utils.NetworkInterceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Response

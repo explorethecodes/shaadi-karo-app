@@ -1,7 +1,7 @@
-package com.fincare.shaadikaro.inject
+package com.fincare.shaadikaro.di
 
-import com.fincare.shaadikaro.data.network.NetworkInterceptor
-import com.fincare.shaadikaro.data.network.api.Api
+import com.fincare.shaadikaro.data.network.utils.NetworkInterceptor
+import com.fincare.shaadikaro.data.network.Api
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

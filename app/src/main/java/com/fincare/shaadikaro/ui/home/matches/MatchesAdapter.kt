@@ -9,8 +9,10 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.fincare.support.images.loadImage
 import com.fincare.shaadikaro.R
-import com.fincare.shaadikaro.data.network.api.collection.matches.Person
+import com.fincare.shaadikaro.data.network.models.collection.matches.Person
 import com.fincare.shaadikaro.databinding.AdapterMatchesBinding
+import com.fincare.support.views.hide
+import com.fincare.support.views.show
 
 class MatchesAdapter(
     var context : Context, var matches: ArrayList<Person>, var onClickListener : MatchesOnCLickListener
@@ -63,11 +65,11 @@ class MatchesAdapter(
     override fun onBindViewHolder(holder: MatchesViewHolder, position: Int) {
         val movie = matches[position]
 
-//        if (position==matches.size-1){
-//            holder.binding.idDivider.hide()
-//        } else {
-//            holder.binding.idDivider.show()
-//        }
+        if (position==matches.size-1){
+            holder.binding.idDivider.hide()
+        } else {
+            holder.binding.idDivider.show()
+        }
 
         holder.binding.data = movie
 
