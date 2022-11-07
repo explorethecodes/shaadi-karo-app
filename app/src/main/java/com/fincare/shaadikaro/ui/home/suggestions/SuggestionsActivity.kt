@@ -1,4 +1,4 @@
-package com.fincare.shaadikaro.ui.home.matches
+package com.fincare.shaadikaro.ui.home.suggestions
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -9,14 +9,12 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.fincare.shaadikaro.R
+import com.fincare.shaadikaro.data.local.database.entities.Suggestion
 import com.fincare.shaadikaro.data.network.utils.CallInfo
 import com.fincare.shaadikaro.data.network.utils.NetworkCallListener
 import com.fincare.shaadikaro.data.network.utils.NoInternetException
-import com.fincare.shaadikaro.data.network.models.collection.matches.MatchesData
-import com.fincare.shaadikaro.data.network.models.collection.matches.Person
-import com.fincare.shaadikaro.databinding.ActivityMatchesBinding
+import com.fincare.shaadikaro.databinding.ActivitySuggestionsBinding
 import com.fincare.shaadikaro.store.widgets.alerts.AlertCallbacks
-import com.fincare.shaadikaro.store.widgets.alerts.noInternetAlert
 import com.fincare.shaadikaro.store.widgets.alerts.somethingWentWrongAlert
 import com.fincare.shaadikaro.ui.home.HomeViewModel
 import com.fincare.support.views.hide
@@ -24,16 +22,16 @@ import com.fincare.support.views.show
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MatchesActivity : AppCompatActivity(), NetworkCallListener {
+class SuggestionsActivity : AppCompatActivity(), NetworkCallListener {
 
     private val viewModel: HomeViewModel by viewModels()
 
-    lateinit var binding : ActivityMatchesBinding
+    lateinit var binding : ActivitySuggestionsBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_matches)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_suggestions)
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
 
@@ -51,77 +49,80 @@ class MatchesActivity : AppCompatActivity(), NetworkCallListener {
         supportActionBar?.setDefaultDisplayHomeAsUpEnabled(true)
 
         binding.idSwipeRefreshLayout.setOnRefreshListener {
-            requestMatches()
+            requestSuggestions()
         }
     }
 
     private fun set() {
-        matches()
+        suggestions()
     }
 
     //---------------------------------------------- MATCHES -------------------------------------------//
-    private fun matches() {
-        prepareMatches()
-        requestMatches()
-        observeMatches()
+    private fun suggestions() {
+        prepareSuggestions()
+        requestSuggestions()
+        observeSuggestions()
     }
-    private fun prepareMatches() {
-        matchesRecyclerView()
+    private fun prepareSuggestions() {
+        suggestionsRecyclerView()
     }
-    private fun requestMatches() {
-        viewModel.requestMatches(viewModel.matchesRequest)
+    private fun requestSuggestions() {
+        viewModel.requestSuggestions(viewModel.suggestionsRequest)
     }
-    private fun observeMatches() {
-        viewModel.matchesResponse.observe(this) { matchesResponse ->
-            viewModel.matchesData = MatchesData(matchesResponse)
-            viewModel.matchesData?.let {
-                if (it.isOk()){
-                    if (it.isSuccess()){
-                        val matches = it.getMatches()
-                        if (!matches.isNullOrEmpty()){
-                            matchesResults(true)
-                            matchesAdapter?.setMatches(matches)
-                        } else {
-                            matchesResults(false)
-                        }
-                    }
-                }
+    private fun observeSuggestions() {
+        viewModel.suggestions.observe(this) { suggestions ->
+            if (!suggestions.isNullOrEmpty()){
+                suggestionsResults(true)
+                suggestionsAdapter?.setSuggestions(suggestions)
+            } else {
+                suggestionsResults(false)
             }
         }
     }
+    private fun updateSuggestion(suggestion: Suggestion, action: SuggestionAction){
+        viewModel.updateSuggestion(suggestion,action)
+    }
 
     @SuppressLint("StaticFieldLeak")
-    var matchesRecyclerView: RecyclerView? = null
-    private var matchesAdapter: MatchesAdapter? = null
-    private fun matchesRecyclerView() {
-        matchesRecyclerView = binding.idRecyclerView
-        matchesAdapter = MatchesAdapter(this,arrayListOf(), object : MatchesOnCLickListener {
-            override fun onMatchClickListener(person: Person, position: Int) {
+    var suggestionsRecyclerView: RecyclerView? = null
+    private var suggestionsAdapter: SuggestionsAdapter? = null
+    private fun suggestionsRecyclerView() {
+        suggestionsRecyclerView = binding.idRecyclerView
+        suggestionsAdapter = SuggestionsAdapter(this,arrayListOf(), object : SuggestionsOnCLickListener {
+            override fun onSuggestionClick(person: Suggestion) {
+            }
+
+            override fun onSuggestionAccept(person: Suggestion) {
+                updateSuggestion(person, SuggestionAction.ACCEPT)
+            }
+
+            override fun onSuggestionDecline(person: Suggestion) {
+                updateSuggestion(person,SuggestionAction.DECLINE)
             }
 
         })
 
-        matchesRecyclerView?.apply {
+        suggestionsRecyclerView?.apply {
             layoutManager = LinearLayoutManager(context!!, LinearLayoutManager.VERTICAL,false)
-            adapter = matchesAdapter
+            adapter = suggestionsAdapter
         }
 
-        matchesRecyclerView?.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrolled(matchesRecyclerView: RecyclerView, dx: Int, dy: Int) {
-                super.onScrolled(matchesRecyclerView, dx, dy)
-                val linearLayoutManager = matchesRecyclerView.layoutManager as LinearLayoutManager?
-                val matchesCount = matchesAdapter?.itemCount
-                matchesCount?.let {
-                    if (matchesCount >= 20){
+        suggestionsRecyclerView?.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(suggestionsRecyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(suggestionsRecyclerView, dx, dy)
+                val linearLayoutManager = suggestionsRecyclerView.layoutManager as LinearLayoutManager?
+                val suggestionsCount = suggestionsAdapter?.itemCount
+                suggestionsCount?.let {
+                    if (suggestionsCount >= 20){
                         linearLayoutManager?.let { linearLayoutManager ->
                             val lastCompleteVisibleItemPosition = linearLayoutManager.findLastVisibleItemPosition()
-                            if (lastCompleteVisibleItemPosition == matchesCount - 1) {
+                            if (lastCompleteVisibleItemPosition == suggestionsCount - 1) {
 
-//                                if (! matchesRecyclerView.canScrollVertically(1)){
-//                                    viewModel.matchesData?.getNextPage()?.let {
-//                                        viewModel.matchesRequest.page = it
-//                                        viewModel.matchesRequest.callCode = CallCode.MOVIES_LOAD_MORE
-//                                        requestMatches()
+//                                if (! suggestionsRecyclerView.canScrollVertically(1)){
+//                                    viewModel.suggestionsData?.getNextPage()?.let {
+//                                        viewModel.suggestionsRequest.page = it
+//                                        viewModel.suggestionsRequest.callCode = CallCode.MOVIES_LOAD_MORE
+//                                        requestSuggestions()
 //                                    }
 //                                }
                             }
@@ -133,7 +134,7 @@ class MatchesActivity : AppCompatActivity(), NetworkCallListener {
 
     }
 
-    private fun matchesResults(haveResults: Boolean){
+    private fun suggestionsResults(haveResults: Boolean){
         if (haveResults){
             binding.idNoResults.hide()
             binding.idRecyclerView.show()
@@ -142,7 +143,7 @@ class MatchesActivity : AppCompatActivity(), NetworkCallListener {
             binding.idRecyclerView.hide()
         }
     }
-    private fun matchesProgress(isLoading: Boolean) {
+    private fun suggestionsProgress(isLoading: Boolean) {
         if (isLoading){
             binding.idRecyclerView.hide()
             binding.idProgressBar.show()
@@ -156,27 +157,21 @@ class MatchesActivity : AppCompatActivity(), NetworkCallListener {
 
     //----------------------------------------------- NETWORK --------------------------------------------//
     override fun onNetworkCallStarted(callInfo: CallInfo) {
-        matchesProgress(true)
+        suggestionsProgress(true)
     }
 
     override fun onNetworkCallSuccess(callInfo: CallInfo) {
-        matchesProgress(false)
+        suggestionsProgress(false)
     }
 
     override fun onNetworkCallFailure(callInfo: CallInfo) {
-        matchesProgress(false)
+        suggestionsProgress(false)
         if (callInfo.exception is NoInternetException) {
-            noInternetAlert {
-                when(it){
-                    AlertCallbacks.TRY_AGAIN -> matches()
-                    AlertCallbacks.QUIT -> onBackPressed()
-                }
-            }
         } else {
             callInfo.exception?.let {
                 somethingWentWrongAlert (it){
                     when(it){
-                        AlertCallbacks.TRY_AGAIN -> matches()
+                        AlertCallbacks.TRY_AGAIN -> suggestions()
                         AlertCallbacks.QUIT -> onBackPressed()
                     }
                 }
@@ -185,7 +180,7 @@ class MatchesActivity : AppCompatActivity(), NetworkCallListener {
     }
 
     override fun onNetworkCallCancel(callInfo: CallInfo) {
-        matchesProgress(false)
+        suggestionsProgress(false)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

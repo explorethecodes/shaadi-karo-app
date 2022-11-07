@@ -3,10 +3,11 @@ package com.fincare.shaadikaro.ui.home
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.fincare.shaadikaro.data.local.database.entities.Suggestion
 import com.fincare.shaadikaro.data.network.utils.NetworkCallListener
-import com.fincare.shaadikaro.data.network.models.collection.matches.MatchesData
-import com.fincare.shaadikaro.data.network.models.collection.matches.MatchesRequest
-import com.fincare.shaadikaro.data.network.models.collection.matches.MatchesResponse
+import com.fincare.shaadikaro.data.network.models.collection.suggestions.SuggestionsData
+import com.fincare.shaadikaro.data.network.models.collection.suggestions.SuggestionsRequest
+import com.fincare.shaadikaro.ui.home.suggestions.SuggestionAction
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -17,18 +18,17 @@ class HomeViewModel @Inject constructor(private val repository: HomeRepository) 
     var networkCallListener : NetworkCallListener? =null
 
     //------------------------------------------- MATCHES -------------------------------------------//
-    var matchesData : MatchesData? = null
-    var matchesRequest = MatchesRequest()
-    val matchesResponse: LiveData<MatchesResponse> get() = _matchesResponse
-    private val _matchesResponse = MutableLiveData<MatchesResponse>()
-    fun requestMatches(matchesRequest: MatchesRequest) {
-        if (validateMatches()) {
-            repository.requestMatches(matchesRequest,networkCallListener){
-                _matchesResponse.value = it
-            }
+    var suggestionsData : SuggestionsData? = null
+    var suggestionsRequest = SuggestionsRequest()
+    val suggestions: LiveData<List<Suggestion>> get() = _suggestions
+    private var _suggestions = MutableLiveData<List<Suggestion>>()
+    fun requestSuggestions(suggestionsRequest: SuggestionsRequest) {
+        repository.requestSuggestions(suggestionsRequest,networkCallListener) {
+            _suggestions.value = it
         }
     }
-    private fun validateMatches(): Boolean {
-        return true
+
+    fun updateSuggestion(suggestion: Suggestion, action: SuggestionAction){
+        repository.updateSuggestion(suggestion,action)
     }
 }

@@ -1,12 +1,14 @@
-package com.fincare.shaadikaro.data.network.models.collection.matches
-import com.fincare.shaadikaro.data.network.models.base.BaseResponse
+package com.fincare.shaadikaro.data.local.database.entities
+
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import com.fincare.shaadikaro.data.network.models.collection.suggestions.*
 import com.google.gson.annotations.SerializedName
 
-data class MatchesResponse(
-    @SerializedName("results") var results: List<Person>? = null,
-) : BaseResponse()
-
-data class Person(
+@Entity(tableName = "Suggestions")
+data class Suggestion(
+    @PrimaryKey(autoGenerate = false)
+    @SerializedName("id") var id: Id,
     @SerializedName("gender") var gender: String? = null,
     @SerializedName("name") var name: Name? = null,
     @SerializedName("location") var location: Location? = null,
@@ -16,9 +18,10 @@ data class Person(
     @SerializedName("registered") var registered: Registered? = null,
     @SerializedName("phone") var phone: String? = null,
     @SerializedName("cell") var cell: String? = null,
-    @SerializedName("id") var id: Id? = null,
     @SerializedName("picture") var picture: Picture? = null,
-    @SerializedName("nat") var nat: String? = null
+    @SerializedName("nat") var nat: String? = null,
+    var hasActionTaken : Boolean = false,
+    var isAccepted : Boolean = false
 )
 
 data class Name(

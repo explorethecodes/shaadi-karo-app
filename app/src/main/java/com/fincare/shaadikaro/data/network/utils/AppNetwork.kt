@@ -40,7 +40,7 @@ class ApiException(message: String) : IOException(message)
 class NoInternetException(message: String) : IOException(message)
 
 enum class CallCode {
-    MATCHES
+    SUGGESTIONS
 }
 
 data class CallInfo(

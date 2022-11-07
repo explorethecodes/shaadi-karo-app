@@ -4,15 +4,18 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.fincare.shaadikaro.data.local.database.daos.MatchDao
-import com.fincare.shaadikaro.data.local.database.entities.MatchEntity
+import androidx.room.TypeConverters
+import com.fincare.shaadikaro.data.local.database.converters.Converters
+import com.fincare.shaadikaro.data.local.database.daos.SuggestionsDao
+import com.fincare.shaadikaro.data.local.database.entities.Suggestion
 
 private const val DATABASE_NAME = "AppDatabase.db"
 
-@Database(entities = [MatchEntity::class], version = 4)
+@Database(entities = [Suggestion::class], version = 4)
+@TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
 
-    abstract fun getMatchDao(): MatchDao
+    abstract fun getSuggestionsDao(): SuggestionsDao
 
     companion object {
 
@@ -35,4 +38,11 @@ abstract class AppDatabase : RoomDatabase() {
                 .fallbackToDestructiveMigration()
                 .build()
     }
+}
+
+interface DatabaseOperationsListener {
+    fun onDatabaseOperationsStarted()
+    fun onDatabaseOperationsSuccess()
+    fun onDatabaseOperationsFailed()
+    fun onDatabaseOperationsCancelled()
 }

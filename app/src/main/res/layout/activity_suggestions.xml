@@ -35,7 +35,7 @@
                 android:id="@+id/id_contents"
                 android:gravity="center"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:orientation="vertical">
 
                 <FrameLayout
@@ -43,11 +43,11 @@
                     android:layout_height="match_parent">
 
                     <LinearLayout
-                        android:visibility="gone"
+                        android:gravity="center"
                         android:id="@+id/id_no_results"
                         android:layout_gravity="top"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:orientation="vertical">
 
                         <ImageView
@@ -66,8 +66,7 @@
                             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                             android:textColor="@color/grey_60"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textStyle="bold" />
+                            android:layout_height="wrap_content"/>
 
                     </LinearLayout>
 
@@ -108,7 +107,7 @@
                             android:elevation="0dp"
                             android:layout_weight="1"
                             android:background="@android:color/transparent"
-                            tools:listitem="@layout/adapter_matches"
+                            tools:listitem="@layout/adapter_suggestions"
                             android:paddingLeft="5dp"
                             android:paddingRight="5dp"
                             android:id="@+id/id_recycler_view"
