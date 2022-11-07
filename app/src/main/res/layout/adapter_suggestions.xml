@@ -198,39 +198,77 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content">
 
-                        <TextView
-                            android:id="@+id/id_accepted"
-                            android:textAllCaps="true"
-                            android:paddingStart="10dp"
-                            android:paddingEnd="10dp"
-                            android:paddingTop="5dp"
-                            android:paddingBottom="5dp"
-                            android:text="Accepted"
-                            android:gravity="start"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                            android:textColor="@color/white"
-                            android:background="@color/green_700"
-                            android:layout_gravity="start"
+                        <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"/>
-
-                        <TextView
-                            android:visibility="invisible"
-                            android:id="@+id/id_rejected"
-                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="start"
-                            android:paddingStart="10dp"
-                            android:paddingEnd="10dp"
-                            android:paddingTop="5dp"
-                            android:paddingBottom="5dp"
-                            android:fontFamily="@font/roboto"
-                            android:gravity="start"
-                            android:background="@color/red_900"
-                            android:text="Declined"
-                            android:textAllCaps="true"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                            android:textColor="@color/white" />
+                            android:orientation="horizontal">
+
+                            <FrameLayout
+                                android:layout_marginEnd="10dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content">
+
+                                <TextView
+                                    android:id="@+id/id_accepted"
+                                    android:textAllCaps="true"
+                                    android:textStyle="bold"
+                                    android:paddingStart="10dp"
+                                    android:paddingEnd="10dp"
+                                    android:background="@color/grey_10"
+                                    android:paddingTop="5dp"
+                                    android:paddingBottom="5dp"
+                                    android:text="Accepted"
+                                    android:gravity="start"
+                                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                                    android:textColor="@color/green_900"
+                                    android:layout_gravity="start"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"/>
+
+                                <TextView
+                                    android:id="@+id/id_rejected"
+                                    android:textStyle="bold"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="start"
+                                    android:paddingStart="10dp"
+                                    android:paddingEnd="10dp"
+                                    android:paddingTop="5dp"
+                                    android:paddingBottom="5dp"
+                                    android:fontFamily="@font/roboto"
+                                    android:gravity="start"
+                                    android:background="@color/grey_10"
+                                    android:text="Declined"
+                                    android:textAllCaps="true"
+                                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                                    android:textColor="@color/grey_60" />
+
+                            </FrameLayout>
+
+                            <LinearLayout
+                                android:id="@+id/id_change"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+
+                                <ImageView
+                                    app:tint="@color/purple_400"
+                                    android:layout_width="30dp"
+                                    android:layout_height="30dp"
+                                    android:src="@drawable/ic_change"
+                                    android:layout_gravity="end|center_vertical"/>
+
+                                <TextView
+                                    android:layout_marginStart="5dp"
+                                    android:textAllCaps="true"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Change"
+                                    android:layout_gravity="center"
+                                    android:gravity="start|center_vertical"/>
+
+                            </LinearLayout>
+                        </LinearLayout>
                     </FrameLayout>
                 </LinearLayout>
 
