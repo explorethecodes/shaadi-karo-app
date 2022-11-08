@@ -88,11 +88,6 @@ dependencies {
     //Swipe Refresh Layout
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
 
-    //Loupe Image Zoom-View
-    implementation 'io.github.igreenwood.loupe:loupe:1.2.2'
-
-    //Shimmer Loading Animation
-    implementation 'com.facebook.shimmer:shimmer:0.5.0'
 }
 
 // Allow references to generated code

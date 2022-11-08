@@ -1,4 +1,4 @@
-package com.fincare.shaadikaro.store.widgets.alerts
+package com.fincare.support.alerts
 
 import android.app.AlertDialog
 import android.content.Context
@@ -8,7 +8,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.FragmentActivity
-import com.fincare.shaadikaro.R
+import com.fincare.support.R
 import com.fincare.support.views.toggleVisibility
 
 fun FragmentActivity.somethingWentWrongAlert(exception: Exception, callback: (AlertCallbacks) -> Unit){

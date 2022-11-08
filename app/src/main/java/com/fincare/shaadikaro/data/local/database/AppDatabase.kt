@@ -6,16 +6,16 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.fincare.shaadikaro.data.local.database.converters.Converters
-import com.fincare.shaadikaro.data.local.database.daos.SuggestionsDao
-import com.fincare.shaadikaro.data.local.database.entities.Suggestion
+import com.fincare.shaadikaro.data.local.database.daos.PersonsDao
+import com.fincare.shaadikaro.data.local.database.entities.Person
 
 private const val DATABASE_NAME = "AppDatabase.db"
 
-@Database(entities = [Suggestion::class], version = 4)
+@Database(entities = [Person::class], version = 1)
 @TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
 
-    abstract fun getSuggestionsDao(): SuggestionsDao
+    abstract fun getPersonsDao(): PersonsDao
 
     companion object {
 

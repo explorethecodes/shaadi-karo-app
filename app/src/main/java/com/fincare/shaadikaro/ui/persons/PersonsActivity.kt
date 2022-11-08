@@ -1,4 +1,4 @@
-package com.fincare.shaadikaro.ui.home.suggestions
+package com.fincare.shaadikaro.ui.persons
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -9,15 +9,14 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.fincare.shaadikaro.R
-import com.fincare.shaadikaro.data.local.database.entities.Suggestion
+import com.fincare.shaadikaro.data.local.database.entities.Person
 import com.fincare.shaadikaro.data.network.utils.CallInfo
 import com.fincare.shaadikaro.data.network.utils.NetworkCallListener
 import com.fincare.shaadikaro.data.network.utils.NoInternetException
-import com.fincare.shaadikaro.databinding.ActivitySuggestionsBinding
-import com.fincare.shaadikaro.store.widgets.alerts.AlertCallbacks
-import com.fincare.shaadikaro.store.widgets.alerts.noInternetAlert
-import com.fincare.shaadikaro.store.widgets.alerts.somethingWentWrongAlert
-import com.fincare.shaadikaro.ui.home.HomeViewModel
+import com.fincare.shaadikaro.databinding.ActivityPersonsBinding
+import com.fincare.support.alerts.AlertCallbacks
+import com.fincare.support.alerts.noInternetAlert
+import com.fincare.support.alerts.somethingWentWrongAlert
 import com.fincare.shaadikaro.utils.startPhotoActivity
 import com.fincare.support.display.nightMode
 import com.fincare.support.views.hide
@@ -25,16 +24,16 @@ import com.fincare.support.views.show
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class SuggestionsActivity : AppCompatActivity(), NetworkCallListener {
+class PersonsActivity : AppCompatActivity(), NetworkCallListener {
 
-    private val viewModel: HomeViewModel by viewModels()
+    private val viewModel: PersonsViewModel by viewModels()
 
-    lateinit var binding : ActivitySuggestionsBinding
+    lateinit var binding : ActivityPersonsBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_suggestions)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_persons)
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
 
@@ -56,43 +55,43 @@ class SuggestionsActivity : AppCompatActivity(), NetworkCallListener {
 
         binding.idSwipeRefreshLayout.setOnRefreshListener {
             setIsFetchNeeded(true)
-            requestSuggestions()
+            requestPersons()
         }
 
         binding.idRefresh.setOnClickListener {
             setIsFetchNeeded(true)
-            requestSuggestions()
+            requestPersons()
         }
     }
 
     private fun set() {
-        suggestions()
+        persons()
     }
 
     //---------------------------------------------- MATCHES -------------------------------------------//
-    private fun suggestions() {
-        prepareSuggestions()
-        requestSuggestions()
-        observeSuggestions()
+    private fun persons() {
+        preparePersons()
+        requestPersons()
+        observePersons()
     }
-    private fun prepareSuggestions() {
-        suggestionsRecyclerView()
+    private fun preparePersons() {
+        personsRecyclerView()
     }
-    private fun requestSuggestions() {
-        viewModel.requestSuggestions(viewModel.suggestionsRequest)
+    private fun requestPersons() {
+        viewModel.requestPersons(viewModel.personsRequest)
     }
-    private fun observeSuggestions() {
-        viewModel.suggestions.observe(this) { suggestions ->
-            if (!suggestions.isNullOrEmpty()){
-                suggestionsResults(true)
-                suggestionsAdapter?.setSuggestions(suggestions)
+    private fun observePersons() {
+        viewModel.persons.observe(this) { persons ->
+            if (!persons.isNullOrEmpty()){
+                personsResults(true)
+                personsAdapter?.setPersons(persons)
             } else {
-                suggestionsResults(false)
+                personsResults(false)
             }
         }
     }
-    private fun updateSuggestion(suggestion: Suggestion){
-        viewModel.updateSuggestion(suggestion)
+    private fun updatePerson(person: Person){
+        viewModel.updatePerson(person)
     }
 
     private fun setIsFetchNeeded(isNeeded : Boolean) {
@@ -100,53 +99,53 @@ class SuggestionsActivity : AppCompatActivity(), NetworkCallListener {
     }
 
     @SuppressLint("StaticFieldLeak")
-    var suggestionsRecyclerView: RecyclerView? = null
-    private var suggestionsAdapter: SuggestionsAdapter? = null
-    private fun suggestionsRecyclerView() {
-        suggestionsRecyclerView = binding.idRecyclerView
-        suggestionsAdapter = SuggestionsAdapter(this,arrayListOf(), object : SuggestionsOnCLickListener {
-            override fun onSuggestionClick(suggestion: Suggestion) {
+    var personsRecyclerView: RecyclerView? = null
+    private var personsAdapter: PersonsAdapter? = null
+    private fun personsRecyclerView() {
+        personsRecyclerView = binding.idRecyclerView
+        personsAdapter = PersonsAdapter(this,arrayListOf(), object : PersonsOnCLickListener {
+            override fun onPersonClick(person: Person) {
             }
 
-            override fun onSuggestionPhotoClick(imageUrl: String) {
+            override fun onPersonPhotoClick(imageUrl: String) {
                 startPhotoActivity(imageUrl)
             }
 
-            override fun onSuggestionAccept(suggestion: Suggestion) {
-                updateSuggestion(suggestion)
+            override fun onPersonAccept(person: Person) {
+                updatePerson(person)
             }
 
-            override fun onSuggestionDecline(suggestion: Suggestion) {
-                updateSuggestion(suggestion)
+            override fun onPersonDecline(person: Person) {
+                updatePerson(person)
             }
 
-            override fun onSuggestionChange(suggestion: Suggestion) {
-                updateSuggestion(suggestion)
+            override fun onPersonChange(person: Person) {
+                updatePerson(person)
             }
 
         })
 
-        suggestionsRecyclerView?.apply {
+        personsRecyclerView?.apply {
             layoutManager = LinearLayoutManager(context!!, LinearLayoutManager.VERTICAL,false)
-            adapter = suggestionsAdapter
+            adapter = personsAdapter
         }
 
-        suggestionsRecyclerView?.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrolled(suggestionsRecyclerView: RecyclerView, dx: Int, dy: Int) {
-                super.onScrolled(suggestionsRecyclerView, dx, dy)
-                val linearLayoutManager = suggestionsRecyclerView.layoutManager as LinearLayoutManager?
-                val suggestionsCount = suggestionsAdapter?.itemCount
-                suggestionsCount?.let {
-                    if (suggestionsCount >= 20){
+        personsRecyclerView?.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(personsRecyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(personsRecyclerView, dx, dy)
+                val linearLayoutManager = personsRecyclerView.layoutManager as LinearLayoutManager?
+                val personsCount = personsAdapter?.itemCount
+                personsCount?.let {
+                    if (personsCount >= 20){
                         linearLayoutManager?.let { linearLayoutManager ->
                             val lastCompleteVisibleItemPosition = linearLayoutManager.findLastVisibleItemPosition()
-                            if (lastCompleteVisibleItemPosition == suggestionsCount - 1) {
+                            if (lastCompleteVisibleItemPosition == personsCount - 1) {
 
-//                                if (! suggestionsRecyclerView.canScrollVertically(1)){
-//                                    viewModel.suggestionsData?.getNextPage()?.let {
-//                                        viewModel.suggestionsRequest.page = it
-//                                        viewModel.suggestionsRequest.callCode = CallCode.MOVIES_LOAD_MORE
-//                                        requestSuggestions()
+//                                if (! personsRecyclerView.canScrollVertically(1)){
+//                                    viewModel.personsData?.getNextPage()?.let {
+//                                        viewModel.personsRequest.page = it
+//                                        viewModel.personsRequest.callCode = CallCode.MOVIES_LOAD_MORE
+//                                        requestPersons()
 //                                    }
 //                                }
                             }
@@ -158,7 +157,7 @@ class SuggestionsActivity : AppCompatActivity(), NetworkCallListener {
 
     }
 
-    private fun suggestionsResults(haveResults: Boolean){
+    private fun personsResults(haveResults: Boolean){
         if (haveResults){
             setIsFetchNeeded(false)
             binding.idNoResults.hide()
@@ -168,7 +167,7 @@ class SuggestionsActivity : AppCompatActivity(), NetworkCallListener {
             binding.idRecyclerView.hide()
         }
     }
-    private fun suggestionsProgress(isLoading: Boolean) {
+    private fun personsProgress(isLoading: Boolean) {
         if (isLoading){
             binding.idRecyclerView.hide()
             binding.idProgressBar.show()
@@ -182,21 +181,21 @@ class SuggestionsActivity : AppCompatActivity(), NetworkCallListener {
 
     //----------------------------------------------- NETWORK --------------------------------------------//
     override fun onNetworkCallStarted(callInfo: CallInfo) {
-        suggestionsProgress(true)
+        personsProgress(true)
     }
 
     override fun onNetworkCallSuccess(callInfo: CallInfo) {
-        suggestionsProgress(false)
+        personsProgress(false)
     }
 
     override fun onNetworkCallFailure(callInfo: CallInfo) {
-        suggestionsProgress(false)
+        personsProgress(false)
         if (callInfo.exception is NoInternetException) {
             noInternetAlert {
                 when(it){
                     AlertCallbacks.TRY_AGAIN -> {
                         setIsFetchNeeded(true)
-                        requestSuggestions()
+                        requestPersons()
                     }
                     AlertCallbacks.QUIT -> onBackPressed()
                 }
@@ -207,7 +206,7 @@ class SuggestionsActivity : AppCompatActivity(), NetworkCallListener {
                     when(it){
                         AlertCallbacks.TRY_AGAIN -> {
                             setIsFetchNeeded(true)
-                            requestSuggestions()
+                            requestPersons()
                         }
                         AlertCallbacks.QUIT -> onBackPressed()
                     }
@@ -217,7 +216,7 @@ class SuggestionsActivity : AppCompatActivity(), NetworkCallListener {
     }
 
     override fun onNetworkCallCancel(callInfo: CallInfo) {
-        suggestionsProgress(false)
+        personsProgress(false)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

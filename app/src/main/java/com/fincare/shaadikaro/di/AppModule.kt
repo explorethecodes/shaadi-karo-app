@@ -2,7 +2,7 @@ package com.fincare.shaadikaro.di
 
 import android.content.Context
 import com.fincare.shaadikaro.data.local.database.AppDatabase
-import com.fincare.shaadikaro.data.local.database.daos.SuggestionsDao
+import com.fincare.shaadikaro.data.local.database.daos.PersonsDao
 import com.fincare.shaadikaro.data.network.utils.NetworkInterceptor
 import com.fincare.shaadikaro.data.network.Api
 import dagger.Module
@@ -23,8 +23,8 @@ object AppModule {
     }
 
     @Provides
-    fun provideSuggestionsDao(appDatabase: AppDatabase): SuggestionsDao {
-        return appDatabase.getSuggestionsDao()
+    fun providePersonsDao(appDatabase: AppDatabase): PersonsDao {
+        return appDatabase.getPersonsDao()
     }
 
     @Provides

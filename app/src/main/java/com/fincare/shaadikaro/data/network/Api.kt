@@ -1,7 +1,7 @@
 package com.fincare.shaadikaro.data.network
 
 import com.fincare.shaadikaro.data.network.utils.Network.BASE_URL
-import com.fincare.shaadikaro.data.network.models.collection.suggestions.SuggestionsResponse
+import com.fincare.shaadikaro.data.network.models.collection.persons.PersonsResponse
 import com.fincare.shaadikaro.data.network.utils.NetworkInterceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -15,9 +15,9 @@ interface Api {
 
     //-------------------------------------- MOVIES -----------------------------------------//
     @GET("/api/")
-    suspend fun suggestions(
+    suspend fun persons(
         @Query("results",encoded = true) results : String,
-    ) : Response<SuggestionsResponse>
+    ) : Response<PersonsResponse>
 
     companion object{
         operator fun invoke(

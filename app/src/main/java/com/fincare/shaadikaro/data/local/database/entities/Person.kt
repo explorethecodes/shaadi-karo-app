@@ -2,11 +2,11 @@ package com.fincare.shaadikaro.data.local.database.entities
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.fincare.shaadikaro.data.network.models.collection.suggestions.*
+import com.fincare.shaadikaro.data.network.models.collection.persons.*
 import com.google.gson.annotations.SerializedName
 
-@Entity(tableName = "Suggestions")
-data class Suggestion(
+@Entity(tableName = "Persons")
+data class Person(
     @PrimaryKey(autoGenerate = false)
     @SerializedName("id") var id: Id,
     @SerializedName("gender") var gender: String? = null,

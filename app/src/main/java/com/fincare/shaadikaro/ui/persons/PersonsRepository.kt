@@ -1,12 +1,12 @@
-package com.fincare.shaadikaro.ui.home
+package com.fincare.shaadikaro.ui.persons
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.fincare.shaadikaro.data.local.database.AppDatabase
-import com.fincare.shaadikaro.data.local.database.entities.Suggestion
+import com.fincare.shaadikaro.data.local.database.entities.Person
 import com.fincare.shaadikaro.data.local.preference.AppPreference
 import com.fincare.shaadikaro.data.network.Api
-import com.fincare.shaadikaro.data.network.models.collection.suggestions.SuggestionsRequest
+import com.fincare.shaadikaro.data.network.models.collection.persons.PersonsRequest
 import com.fincare.shaadikaro.data.network.utils.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -20,24 +20,24 @@ private val MINIMUM_INTERVAL = 6
 
 class HomeRepository @Inject constructor(private val api: Api, private val appPreference: AppPreference, private val appDatabase: AppDatabase) : NetworkCall() {
 
-    private val suggestions = MutableLiveData<List<Suggestion>>()
+    private val persons = MutableLiveData<List<Person>>()
 
     init {
-        suggestions.observeForever {
-            insertSuggestions(it)
+        persons.observeForever {
+            insertPersons(it)
         }
     }
 
-    private fun insertSuggestions(suggestions: List<Suggestion>) {
+    private fun insertPersons(persons: List<Person>) {
         CoroutineScope(Dispatchers.IO).launch {
             appPreference.setLastSavedAt(LocalDateTime.now().toString())
-            appDatabase.getSuggestionsDao().insertSuggestions(suggestions)
+            appDatabase.getPersonsDao().insertPersons(persons)
         }
     }
 
-    fun updateSuggestion(suggestion: Suggestion) {
+    fun updatePerson(person: Person) {
         CoroutineScope(Dispatchers.IO).launch {
-            appDatabase.getSuggestionsDao().updateSuggestion(suggestion)
+            appDatabase.getPersonsDao().updatePerson(person)
         }
     }
 
@@ -49,18 +49,18 @@ class HomeRepository @Inject constructor(private val api: Api, private val appPr
         return appPreference.isFetchNeeded()
     }
 
-    fun requestSuggestions(request: SuggestionsRequest, networkCallListener: NetworkCallListener?, callback: (List<Suggestion>) -> Unit) {
+    fun requestPersons(request: PersonsRequest, networkCallListener: NetworkCallListener?, callback: (List<Person>) -> Unit) {
         CoroutineScope(Dispatchers.Main).launch {
             if (isFetchNeeded()) {
                 try {
                     networkCallListener?.onNetworkCallStarted(CallInfo(callCode = request.callCode))
 
-                    val suggestionsResponse = apiRequest { api.suggestions(
+                    val personsResponse = apiRequest { api.persons(
                         request.results.toString()
                     )}
 
-                    suggestionsResponse.results?.let {
-                        suggestions.postValue(it)
+                    personsResponse.results?.let {
+                        persons.postValue(it)
                     }
 
                     networkCallListener?.onNetworkCallSuccess(CallInfo(callCode = request.callCode))
@@ -76,15 +76,15 @@ class HomeRepository @Inject constructor(private val api: Api, private val appPr
                 networkCallListener?.onNetworkCallFailure(CallInfo(callCode = request.callCode))
             }
 
-            getSuggestions().observeForever {
+            getPersons().observeForever {
                 callback(it.reversed())
             }
         }
     }
 
-    private suspend fun getSuggestions() : LiveData<List<Suggestion>>{
+    private suspend fun getPersons() : LiveData<List<Person>>{
         return withContext(Dispatchers.IO){
-            appDatabase.getSuggestionsDao().getSuggestions()
+            appDatabase.getPersonsDao().getPersons()
         }
     }
 

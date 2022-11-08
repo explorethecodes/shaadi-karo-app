@@ -1,4 +1,4 @@
-package com.fincare.shaadikaro.store.widgets.alerts
+package com.fincare.support.alerts
 
 enum class AlertCallbacks {
     TRY_AGAIN,
