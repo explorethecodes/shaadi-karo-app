@@ -5,8 +5,10 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.Button
+import android.widget.ImageView
 import androidx.fragment.app.FragmentActivity
 import com.fincare.shaadikaro.R
+import com.fincare.support.views.toast
 
 fun FragmentActivity.noInternetAlert(callback: (AlertCallbacks) -> Unit){
     noInternetAlert(this) {
@@ -28,8 +30,13 @@ fun noInternetAlert(context: Context, callback : (AlertCallbacks) -> Unit) {
     val dialogView: View = inflater.inflate(R.layout.alert_no_internet, null)
     dialogView.setBackgroundColor(context.resources.getColor(android.R.color.transparent))
 
+    val image: ImageView = dialogView.findViewById(R.id.id_image) as ImageView
     val positive: Button = dialogView.findViewById(R.id.id_positive) as Button
     val negative: Button = dialogView.findViewById(R.id.id_negative) as Button
+
+    image.setOnClickListener {
+        context.toast("Uh oh ! I can't jump & play :(")
+    }
 
     positive.setOnClickListener {
         dialogBuilder.dismiss()

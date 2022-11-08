@@ -7,6 +7,7 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
 private const val KEY_SAVED_AT = "key_saved_at"
+private const val KEY_IS_FETCH_NEEDED = "key_is_fetch_needed"
 
 class AppPreference @Inject constructor(@ApplicationContext context: Context) {
 
@@ -25,4 +26,16 @@ class AppPreference @Inject constructor(@ApplicationContext context: Context) {
     fun getLastSavedAt(): String? {
         return preference.getString(KEY_SAVED_AT, null)
     }
+
+    fun setIsFetchNeeded(isDone: Boolean) {
+        preference.edit().putBoolean(
+            KEY_IS_FETCH_NEEDED,
+            isDone
+        ).apply()
+    }
+
+    fun isFetchNeeded(): Boolean {
+        return preference.getBoolean(KEY_IS_FETCH_NEEDED, true)
+    }
+    
 }

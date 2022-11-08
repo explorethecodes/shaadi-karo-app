@@ -15,8 +15,11 @@ import com.fincare.shaadikaro.data.network.utils.NetworkCallListener
 import com.fincare.shaadikaro.data.network.utils.NoInternetException
 import com.fincare.shaadikaro.databinding.ActivitySuggestionsBinding
 import com.fincare.shaadikaro.store.widgets.alerts.AlertCallbacks
+import com.fincare.shaadikaro.store.widgets.alerts.noInternetAlert
 import com.fincare.shaadikaro.store.widgets.alerts.somethingWentWrongAlert
 import com.fincare.shaadikaro.ui.home.HomeViewModel
+import com.fincare.shaadikaro.utils.startPhotoActivity
+import com.fincare.support.display.nightMode
 import com.fincare.support.views.hide
 import com.fincare.support.views.show
 import dagger.hilt.android.AndroidEntryPoint
@@ -46,9 +49,18 @@ class SuggestionsActivity : AppCompatActivity(), NetworkCallListener {
     @SuppressLint("RestrictedApi")
     private fun init() {
         viewModel.networkCallListener = this
+
+        nightMode(false)
+
         supportActionBar?.setDefaultDisplayHomeAsUpEnabled(true)
 
         binding.idSwipeRefreshLayout.setOnRefreshListener {
+            setIsFetchNeeded(true)
+            requestSuggestions()
+        }
+
+        binding.idRefresh.setOnClickListener {
+            setIsFetchNeeded(true)
             requestSuggestions()
         }
     }
@@ -79,8 +91,12 @@ class SuggestionsActivity : AppCompatActivity(), NetworkCallListener {
             }
         }
     }
-    private fun updateSuggestion(suggestion: Suggestion, action: SuggestionAction){
-        viewModel.updateSuggestion(suggestion,action)
+    private fun updateSuggestion(suggestion: Suggestion){
+        viewModel.updateSuggestion(suggestion)
+    }
+
+    private fun setIsFetchNeeded(isNeeded : Boolean) {
+        viewModel.setIsFetchNeeded(isNeeded)
     }
 
     @SuppressLint("StaticFieldLeak")
@@ -89,15 +105,23 @@ class SuggestionsActivity : AppCompatActivity(), NetworkCallListener {
     private fun suggestionsRecyclerView() {
         suggestionsRecyclerView = binding.idRecyclerView
         suggestionsAdapter = SuggestionsAdapter(this,arrayListOf(), object : SuggestionsOnCLickListener {
-            override fun onSuggestionClick(person: Suggestion) {
+            override fun onSuggestionClick(suggestion: Suggestion) {
             }
 
-            override fun onSuggestionAccept(person: Suggestion) {
-                updateSuggestion(person, SuggestionAction.ACCEPT)
+            override fun onSuggestionPhotoClick(imageUrl: String) {
+                startPhotoActivity(imageUrl)
             }
 
-            override fun onSuggestionDecline(person: Suggestion) {
-                updateSuggestion(person,SuggestionAction.DECLINE)
+            override fun onSuggestionAccept(suggestion: Suggestion) {
+                updateSuggestion(suggestion)
+            }
+
+            override fun onSuggestionDecline(suggestion: Suggestion) {
+                updateSuggestion(suggestion)
+            }
+
+            override fun onSuggestionChange(suggestion: Suggestion) {
+                updateSuggestion(suggestion)
             }
 
         })
@@ -136,6 +160,7 @@ class SuggestionsActivity : AppCompatActivity(), NetworkCallListener {
 
     private fun suggestionsResults(haveResults: Boolean){
         if (haveResults){
+            setIsFetchNeeded(false)
             binding.idNoResults.hide()
             binding.idRecyclerView.show()
         } else {
@@ -167,11 +192,23 @@ class SuggestionsActivity : AppCompatActivity(), NetworkCallListener {
     override fun onNetworkCallFailure(callInfo: CallInfo) {
         suggestionsProgress(false)
         if (callInfo.exception is NoInternetException) {
+            noInternetAlert {
+                when(it){
+                    AlertCallbacks.TRY_AGAIN -> {
+                        setIsFetchNeeded(true)
+                        requestSuggestions()
+                    }
+                    AlertCallbacks.QUIT -> onBackPressed()
+                }
+            }
         } else {
             callInfo.exception?.let {
                 somethingWentWrongAlert (it){
                     when(it){
-                        AlertCallbacks.TRY_AGAIN -> suggestions()
+                        AlertCallbacks.TRY_AGAIN -> {
+                            setIsFetchNeeded(true)
+                            requestSuggestions()
+                        }
                         AlertCallbacks.QUIT -> onBackPressed()
                     }
                 }

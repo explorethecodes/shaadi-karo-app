@@ -44,18 +44,6 @@ class SuggestionsAdapter(
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun updateSuggestions(suggestions: List<Suggestion>) {
-        this.suggestions.addAll(suggestions)
-        notifyDataSetChanged()
-    }
-
-    @SuppressLint("NotifyDataSetChanged")
-    fun clearSuggestions(){
-        this.suggestions.clear()
-        notifyDataSetChanged()
-    }
-
-    @SuppressLint("NotifyDataSetChanged")
     private fun setSelected(position: Int){
         selectedPosition = position
         notifyDataSetChanged()
@@ -80,6 +68,9 @@ class SuggestionsAdapter(
             onClickListener.onSuggestionClick(data)
         }
 
+        binding.idArtistImage.setOnClickListener {
+            data.picture?.large?.let { imageUrl -> onClickListener.onSuggestionPhotoClick(imageUrl) }
+        }
         binding.idAccept.setOnClickListener {
             data.hasActionTaken = true
             data.isAccepted = true
@@ -90,6 +81,12 @@ class SuggestionsAdapter(
             data.hasActionTaken = true
             data.isAccepted = false
             onClickListener.onSuggestionDecline(data)
+        }
+
+        binding.idChange.setOnClickListener {
+            data.hasActionTaken = false
+            data.isAccepted = false
+            onClickListener.onSuggestionChange(data)
         }
 
         if (data.hasActionTaken){
@@ -126,12 +123,9 @@ class SuggestionsAdapter(
 }
 
 interface SuggestionsOnCLickListener {
-    fun onSuggestionClick(person : Suggestion)
-    fun onSuggestionAccept(person : Suggestion)
-    fun onSuggestionDecline(person : Suggestion)
-}
-
-enum class SuggestionAction {
-    ACCEPT,
-    DECLINE
+    fun onSuggestionClick(suggestion : Suggestion)
+    fun onSuggestionPhotoClick(imageUrl : String)
+    fun onSuggestionAccept(suggestion : Suggestion)
+    fun onSuggestionDecline(suggestion : Suggestion)
+    fun onSuggestionChange(suggestion: Suggestion)
 }

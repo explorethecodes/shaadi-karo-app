@@ -7,7 +7,6 @@ import com.fincare.shaadikaro.data.local.database.entities.Suggestion
 import com.fincare.shaadikaro.data.network.utils.NetworkCallListener
 import com.fincare.shaadikaro.data.network.models.collection.suggestions.SuggestionsData
 import com.fincare.shaadikaro.data.network.models.collection.suggestions.SuggestionsRequest
-import com.fincare.shaadikaro.ui.home.suggestions.SuggestionAction
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -17,7 +16,7 @@ class HomeViewModel @Inject constructor(private val repository: HomeRepository) 
     //------------------------------------------- NETWORK ------------------------------------------//
     var networkCallListener : NetworkCallListener? =null
 
-    //------------------------------------------- MATCHES -------------------------------------------//
+    //------------------------------------------- SUGGESTIONS -------------------------------------------//
     var suggestionsData : SuggestionsData? = null
     var suggestionsRequest = SuggestionsRequest()
     val suggestions: LiveData<List<Suggestion>> get() = _suggestions
@@ -28,7 +27,11 @@ class HomeViewModel @Inject constructor(private val repository: HomeRepository) 
         }
     }
 
-    fun updateSuggestion(suggestion: Suggestion, action: SuggestionAction){
-        repository.updateSuggestion(suggestion,action)
+    fun updateSuggestion(suggestion: Suggestion){
+        repository.updateSuggestion(suggestion)
+    }
+
+    fun setIsFetchNeeded(isNeeded : Boolean) {
+        repository.setIsFetchNeeded(isNeeded)
     }
 }
