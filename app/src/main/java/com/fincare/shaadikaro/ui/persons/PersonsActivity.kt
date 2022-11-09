@@ -14,15 +14,15 @@ import com.fincare.shaadikaro.data.network.utils.CallInfo
 import com.fincare.shaadikaro.data.network.utils.NetworkCallListener
 import com.fincare.shaadikaro.data.network.utils.NoInternetException
 import com.fincare.shaadikaro.databinding.ActivityPersonsBinding
+import com.fincare.shaadikaro.utils.startPhotoActivity
 import com.fincare.support.alerts.AlertCallbacks
 import com.fincare.support.alerts.noInternetAlert
 import com.fincare.support.alerts.somethingWentWrongAlert
-import com.fincare.shaadikaro.utils.startPhotoActivity
-import com.fincare.support.display.nightMode
 import com.fincare.support.views.hide
 import com.fincare.support.views.show
 import dagger.hilt.android.AndroidEntryPoint
 
+@Suppress("DEPRECATION")
 @AndroidEntryPoint
 class PersonsActivity : AppCompatActivity(), NetworkCallListener {
 
@@ -49,10 +49,6 @@ class PersonsActivity : AppCompatActivity(), NetworkCallListener {
     private fun init() {
         viewModel.networkCallListener = this
 
-        nightMode(false)
-
-        supportActionBar?.setDefaultDisplayHomeAsUpEnabled(true)
-
         binding.idSwipeRefreshLayout.setOnRefreshListener {
             setIsFetchNeeded(true)
             requestPersons()
@@ -68,7 +64,7 @@ class PersonsActivity : AppCompatActivity(), NetworkCallListener {
         persons()
     }
 
-    //---------------------------------------------- MATCHES -------------------------------------------//
+    //---------------------------------------------- PERSONS -------------------------------------------//
     private fun persons() {
         preparePersons()
         requestPersons()
@@ -130,30 +126,30 @@ class PersonsActivity : AppCompatActivity(), NetworkCallListener {
             adapter = personsAdapter
         }
 
-        personsRecyclerView?.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrolled(personsRecyclerView: RecyclerView, dx: Int, dy: Int) {
-                super.onScrolled(personsRecyclerView, dx, dy)
-                val linearLayoutManager = personsRecyclerView.layoutManager as LinearLayoutManager?
-                val personsCount = personsAdapter?.itemCount
-                personsCount?.let {
-                    if (personsCount >= 20){
-                        linearLayoutManager?.let { linearLayoutManager ->
-                            val lastCompleteVisibleItemPosition = linearLayoutManager.findLastVisibleItemPosition()
-                            if (lastCompleteVisibleItemPosition == personsCount - 1) {
-
-//                                if (! personsRecyclerView.canScrollVertically(1)){
-//                                    viewModel.personsData?.getNextPage()?.let {
-//                                        viewModel.personsRequest.page = it
-//                                        viewModel.personsRequest.callCode = CallCode.MOVIES_LOAD_MORE
-//                                        requestPersons()
-//                                    }
-//                                }
-                            }
-                        }
-                    }
-                }
-            }
-        })
+//        personsRecyclerView?.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+//            override fun onScrolled(personsRecyclerView: RecyclerView, dx: Int, dy: Int) {
+//                super.onScrolled(personsRecyclerView, dx, dy)
+//                val linearLayoutManager = personsRecyclerView.layoutManager as LinearLayoutManager?
+//                val personsCount = personsAdapter?.itemCount
+//                personsCount?.let {
+//                    if (personsCount >= 10){
+//                        linearLayoutManager?.let { linearLayoutManager ->
+//                            val lastCompleteVisibleItemPosition = linearLayoutManager.findLastVisibleItemPosition()
+//                            if (lastCompleteVisibleItemPosition == personsCount - 1) {
+//
+////                                if (! personsRecyclerView.canScrollVertically(1)){
+////                                    viewModel.personsData?.getNextPage()?.let {
+////                                        viewModel.personsRequest.page = it
+////                                        viewModel.personsRequest.callCode = CallCode.MOVIES_LOAD_MORE
+////                                        requestPersons()
+////                                    }
+////                                }
+//                            }
+//                        }
+//                    }
+//                }
+//            }
+//        })
 
     }
 

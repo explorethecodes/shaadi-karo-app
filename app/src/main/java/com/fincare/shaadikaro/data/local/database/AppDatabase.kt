@@ -40,9 +40,9 @@ abstract class AppDatabase : RoomDatabase() {
     }
 }
 
-interface DatabaseOperationsListener {
-    fun onDatabaseOperationsStarted()
-    fun onDatabaseOperationsSuccess()
-    fun onDatabaseOperationsFailed()
-    fun onDatabaseOperationsCancelled()
-}
+//interface DatabaseOperationsListener {
+//    fun onDatabaseOperationsStarted()
+//    fun onDatabaseOperationsSuccess()
+//    fun onDatabaseOperationsFailed()
+//    fun onDatabaseOperationsCancelled()
+//}

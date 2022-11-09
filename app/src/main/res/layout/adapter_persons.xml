@@ -43,7 +43,8 @@
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:src="@drawable/ic_logo_web"
-                        android:layout_gravity="start"/>
+                        android:layout_gravity="start"
+                        android:contentDescription="@string/content_description" />
 
                     <androidx.cardview.widget.CardView
                         app:cardBackgroundColor="@color/white"
@@ -74,7 +75,8 @@
                                 android:id="@+id/id_artist_image"
                                 android:scaleType="centerCrop"
                                 android:layout_width="match_parent"
-                                android:layout_height="match_parent"/>
+                                android:layout_height="match_parent"
+                                android:contentDescription="@string/content_description" />
                         </androidx.cardview.widget.CardView>
                     </androidx.cardview.widget.CardView>
 
@@ -150,7 +152,7 @@
 
                             <TextView
                                 android:textAllCaps="true"
-                                android:text="Accept"
+                                android:text="@string/accept"
                                 android:gravity="center"
                                 android:textAppearance="@style/TextAppearance.AppCompat.Small"
                                 android:textColor="@color/white"
@@ -180,7 +182,7 @@
                                 android:layout_marginStart="10dp"
                                 android:layout_marginEnd="10dp"
                                 android:textAllCaps="true"
-                                android:text="Decline"
+                                android:text="@string/decline"
                                 android:gravity="center"
                                 android:textAppearance="@style/TextAppearance.AppCompat.Small"
                                 android:textColor="@color/grey_80"
@@ -201,7 +203,8 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal">
+                            android:orientation="horizontal"
+                            tools:ignore="UselessParent">
 
                             <FrameLayout
                                 android:layout_marginEnd="10dp"
@@ -213,10 +216,9 @@
                                     android:id="@+id/id_accepted"
                                     android:textAllCaps="true"
                                     android:textStyle="bold"
-                                    android:paddingEnd="10dp"
                                     android:paddingTop="5dp"
                                     android:paddingBottom="5dp"
-                                    android:text="Accepted"
+                                    android:text="@string/accepted"
                                     android:gravity="start"
                                     android:textAppearance="@style/TextAppearance.AppCompat.Small"
                                     android:textColor="@color/green_900"
@@ -229,12 +231,11 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="start"
-                                    android:paddingEnd="10dp"
                                     android:paddingTop="5dp"
                                     android:paddingBottom="5dp"
                                     android:fontFamily="@font/roboto"
                                     android:gravity="start"
-                                    android:text="Declined"
+                                    android:text="@string/declined"
                                     android:textAllCaps="true"
                                     android:textAppearance="@style/TextAppearance.AppCompat.Small"
                                     android:textColor="@color/grey_60" />
@@ -245,21 +246,23 @@
                                 android:id="@+id/id_change"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:orientation="horizontal">
+                                android:orientation="horizontal"
+                                tools:ignore="UseCompoundDrawables">
 
                                 <ImageView
                                     app:tint="@color/purple_400"
                                     android:layout_width="30dp"
                                     android:layout_height="30dp"
                                     android:src="@drawable/ic_change"
-                                    android:layout_gravity="end|center_vertical"/>
+                                    android:layout_gravity="end|center_vertical"
+                                    android:contentDescription="@string/content_description" />
 
                                 <TextView
                                     android:layout_marginStart="5dp"
                                     android:textAllCaps="true"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="Change"
+                                    android:text="@string/change"
                                     android:layout_gravity="center"
                                     android:gravity="start|center_vertical"/>
 

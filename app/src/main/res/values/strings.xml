@@ -1,6 +1,16 @@
 <resources>
-    <string name="app_name">Shaadi</string>
+    <string name="app_name">Shaadi Karo</string>
 
-    <string name="caption"></string>
-    <string name="label_matches_activity">Shaadi</string>
+    <string name="accept">Accept</string>
+    <string name="decline">Decline</string>
+
+    <string name="accepted">Accepted</string>
+    <string name="declined">Declined</string>
+
+    <string name="change">Change</string>
+
+    <string name="suggestions">Suggestions</string>
+
+    <string name="no_results_found">No results found !</string>
+    <string name="content_description"> </string>
 </resources>

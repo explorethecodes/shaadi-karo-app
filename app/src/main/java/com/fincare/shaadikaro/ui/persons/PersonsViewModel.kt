@@ -4,9 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.fincare.shaadikaro.data.local.database.entities.Person
-import com.fincare.shaadikaro.data.network.utils.NetworkCallListener
-import com.fincare.shaadikaro.data.network.models.collection.persons.PersonsData
 import com.fincare.shaadikaro.data.network.models.collection.persons.PersonsRequest
+import com.fincare.shaadikaro.data.network.utils.NetworkCallListener
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 

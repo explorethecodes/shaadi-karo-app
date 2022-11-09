@@ -37,19 +37,19 @@ class PersonsAdapter(
         notifyDataSetChanged()
     }
 
-    @SuppressLint("NotifyDataSetChanged")
-    fun addPersons(persons: List<Person>) {
-        this.persons.addAll(persons)
-        notifyDataSetChanged()
-    }
+//    @SuppressLint("NotifyDataSetChanged")
+//    fun addPersons(persons: List<Person>) {
+//        this.persons.addAll(persons)
+//        notifyDataSetChanged()
+//    }
+//
+//    @SuppressLint("NotifyDataSetChanged")
+//    private fun setSelected(position: Int){
+//        selectedPosition = position
+//        notifyDataSetChanged()
+//    }
 
-    @SuppressLint("NotifyDataSetChanged")
-    private fun setSelected(position: Int){
-        selectedPosition = position
-        notifyDataSetChanged()
-    }
-
-    private var selectedPosition = 0
+//    private var selectedPosition = 0
     override fun onBindViewHolder(holder: PersonsViewHolder, position: Int) {
         val data = persons[position]
         holder.bind(data,position)

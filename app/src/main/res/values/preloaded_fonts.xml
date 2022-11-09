@@ -2,7 +2,6 @@
 <resources>
     <array name="preloaded_fonts" translatable="false">
         <item>@font/alata</item>
-        <item>@font/cinzel_bold</item>
         <item>@font/lato</item>
         <item>@font/roboto</item>
     </array>

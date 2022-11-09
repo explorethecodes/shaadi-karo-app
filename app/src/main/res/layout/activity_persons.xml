@@ -47,7 +47,8 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        tools:ignore="UselessParent">
 
                         <ImageView
                             android:id="@+id/id_badge"
@@ -56,20 +57,21 @@
                             android:layout_width="50dp"
                             android:layout_height="50dp"
                             android:src="@drawable/ic_logo_web"
-                            android:layout_gravity="center"/>
+                            android:layout_gravity="center"
+                            android:contentDescription="@string/content_description" />
 
                         <TextView
                             android:layout_marginStart="10dp"
-                            android:textSize="22dp"
-                            android:layout_width="wrap_content"
+                            android:textSize="@dimen/title"
+                            android:layout_width="0dp"
                             android:layout_weight="1"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:fontFamily="@font/cinzel_bold"
                             android:gravity="start|center_vertical"
-                            android:text="Suggestions"
+                            android:text="@string/suggestions"
                             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                            android:textColor="@color/white" />
+                            android:textColor="@color/white"
+                            tools:ignore="SpUsage" />
 
                         <ImageView
                             android:layout_marginEnd="10dp"
@@ -84,7 +86,9 @@
                             android:layout_width="50dp"
                             android:layout_height="50dp"
                             android:src="@drawable/ic_refresh"
-                            android:layout_gravity="center"/>
+                            android:layout_gravity="center"
+                            tools:ignore="UnusedAttribute"
+                            android:contentDescription="@string/content_description" />
                     </LinearLayout>
                 </FrameLayout>
                 <FrameLayout
@@ -98,18 +102,20 @@
                         android:layout_gravity="top"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        tools:ignore="UseCompoundDrawables">
 
                         <ImageView
                             android:layout_width="300dp"
                             android:layout_height="200dp"
                             android:layout_gravity="center"
-                            android:src="@drawable/ic_no_results"/>
+                            android:src="@drawable/ic_no_results"
+                            android:contentDescription="@string/content_description" />
 
                         <TextView
                             android:layout_gravity="center"
                             android:gravity="center"
-                            android:text="No results found !"
+                            android:text="@string/no_results_found"
                             android:layout_marginStart="10dp"
                             android:layout_marginTop="5dp"
                             android:maxWidth="140dp"
@@ -126,33 +132,6 @@
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
 
-                        <LinearLayout
-                            android:visibility="gone"
-                            android:layout_marginTop="2dp"
-                            android:background="@color/purple_700"
-                            android:layout_gravity="top"
-                            android:layout_width="match_parent"
-                            android:layout_height="50dp"
-                            android:elevation="5dp"
-                            android:orientation="horizontal">
-
-                            <ImageView
-                                android:layout_gravity="center"
-                                android:layout_width="50dp"
-                                android:layout_height="50dp"
-                                android:src="@drawable/ic_logo_playstore"/>
-
-                            <TextView
-                                android:fontFamily="@font/roboto"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:paddingLeft="10dp"
-                                android:text="@string/caption"
-                                android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                                android:textColor="@color/white" />
-
-                        </LinearLayout>
                         <androidx.recyclerview.widget.RecyclerView
                             android:elevation="0dp"
                             android:layout_weight="1"
@@ -164,7 +143,7 @@
                             tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                             android:orientation="vertical"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"/>
+                            android:layout_height="0dp"/>
                     </LinearLayout>
 
                 </FrameLayout>

@@ -12,11 +12,9 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.lang.Exception
-import java.time.LocalDateTime
 import javax.inject.Inject
 
-private val MINIMUM_INTERVAL = 6
+//private val MINIMUM_INTERVAL = 6
 
 class HomeRepository @Inject constructor(private val api: Api, private val appPreference: AppPreference, private val appDatabase: AppDatabase) : NetworkCall() {
 
@@ -30,7 +28,7 @@ class HomeRepository @Inject constructor(private val api: Api, private val appPr
 
     private fun insertPersons(persons: List<Person>) {
         CoroutineScope(Dispatchers.IO).launch {
-            appPreference.setLastSavedAt(LocalDateTime.now().toString())
+//            appPreference.setLastSavedAt(LocalDateTime.now().toString())
             appDatabase.getPersonsDao().insertPersons(persons)
         }
     }
@@ -41,13 +39,13 @@ class HomeRepository @Inject constructor(private val api: Api, private val appPr
         }
     }
 
-    private fun isFetchNeeded(savedAt: LocalDateTime): Boolean {
-        val lastSavedAt = appPreference.getLastSavedAt()
-
-        lastSavedAt == null || isFetchNeeded(LocalDateTime.parse(lastSavedAt))
-        
-        return appPreference.isFetchNeeded()
-    }
+//    private fun isFetchNeeded(savedAt: LocalDateTime): Boolean {
+//        val lastSavedAt = appPreference.getLastSavedAt()
+//
+//        lastSavedAt == null || isFetchNeeded(LocalDateTime.parse(lastSavedAt))
+//
+//        return appPreference.isFetchNeeded()
+//    }
 
     fun requestPersons(request: PersonsRequest, networkCallListener: NetworkCallListener?, callback: (List<Person>) -> Unit) {
         CoroutineScope(Dispatchers.Main).launch {
