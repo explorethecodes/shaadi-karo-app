@@ -193,7 +193,7 @@ class PersonsActivity : AppCompatActivity(), NetworkCallListener {
                         setIsFetchNeeded(true)
                         requestPersons()
                     }
-                    AlertCallbacks.QUIT -> onBackPressed()
+                    AlertCallbacks.QUIT -> {}
                 }
             }
         } else {
@@ -204,7 +204,7 @@ class PersonsActivity : AppCompatActivity(), NetworkCallListener {
                             setIsFetchNeeded(true)
                             requestPersons()
                         }
-                        AlertCallbacks.QUIT -> onBackPressed()
+                        AlertCallbacks.QUIT -> {}
                     }
                 }
             }

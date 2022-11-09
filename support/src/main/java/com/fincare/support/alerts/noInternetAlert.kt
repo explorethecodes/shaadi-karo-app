@@ -35,7 +35,7 @@ fun noInternetAlert(context: Context, callback : (AlertCallbacks) -> Unit) {
     val negative: Button = dialogView.findViewById(R.id.id_negative) as Button
 
     image.setOnClickListener {
-        context.toast("Uh oh ! I can't jump & play :(")
+        context.toast("Uh oh ! I can't jump :(")
     }
 
     positive.setOnClickListener {

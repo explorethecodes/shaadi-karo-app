@@ -8,6 +8,7 @@
     <string name="try_again">Try Again</string>
     <string name="quit">Quit</string>
     <string name="go_back">Go Back</string>
+    <string name="stay_offline">Stay Offline</string>
     <string name="make_sure_active_connection">Make sure you have an active internet connection !</string>
 
     <string name="something_went_wrong">Something went Wrong !</string>
